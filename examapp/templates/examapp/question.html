@@ -1,0 +1,61 @@
+{% extends 'examapp/base.html' %}
+{% block content %}
+  
+  <button id="btn">Start Exam </button>
+  <div id="container" class="container">
+    <div class="row">
+      <div class="col-8 border border-success m-2 p-2">
+      <form action="{% url 'score' %}" id="quizForm" method="POST" name = "quizForm">
+        {% csrf_token %}
+        {% for i in questions %}
+          <h5 id="{{i.id}}">{{forloop.counter}} ) {{i.question }}</h5>
+          <div class="radio">
+            <label for=""><input type="radio" name="q{{forloop.counter}}" id="{{i.opt1}}" value="{{i.opt1}}"> {{i.opt1}}</label>
+          </div>
+          <div class="radio">
+            <label for=""><input type="radio" name="q{{forloop.counter}}" id="{{i.opt2}}" value="{{i.opt2}}"> {{i.opt2}}</label>
+          </div>
+          {% if i.opt3 != '' %}
+          <div class="radio">
+            <label for=""><input type="radio" name="q{{forloop.counter}}" id="{{i.opt3}}" value="{{i.opt3}}"> {{i.opt3}}</label>
+          </div>
+          {% endif %}
+          {% if i.opt4 != '' %}
+          <div class="radio">
+            <label for=""><input type="radio" name="q{{forloop.counter}}" id="{{i.opt4}}" value="{{i.opt4}}"> {{i.opt4}}</label>
+          </div>
+          {% endif %}
+          <hr>
+        {% endfor %}
+        <div class="button text-center">
+					<input type="submit" class="w-25 btn btn-outline-success p-2" value="Submit Ans">
+				</div>
+        
+        </form>
+      </div>
+      <div class="col-3 m-2 p-2 border">
+        <div class="sticky-top">
+         <img src="{% url 'livefeed' %}" alt="" class="img-thumbnail">
+          <div id="timer" class="my-2 text-center">
+            <!-- date -->
+            <span id="month"></span>
+            <span id="date"></span>
+            <span id="year"></span>
+            <!-- timer -->
+            <span>|</span>
+            <span id="time">00:00:00</span>
+            <!-- timer -->
+          </div>
+          <hr />
+          {% for i in questions %}
+            {% if forloop.counter <= 9 %}
+              <a href="#{{i.id}}" class="btn m-1 p-2 btn-outline-info">0{{forloop.counter}}</a>
+            {% else %}
+              <a href="#{{i.id}}" class="btn m-1 p-2 btn-outline-info">{{forloop.counter}}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

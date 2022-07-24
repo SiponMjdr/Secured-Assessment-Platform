@@ -1,0 +1,48 @@
+{% extends 'examapp/base.html' %}
+{% block content %}
+<h1>good evening</h1>
+{% for message in messages %}
+  <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %}
+<video src="" class="thumbnail" id="videoElement" autoplay="true"></video>
+
+
+<script>
+    var video = document.querySelector("#videoElement");
+
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(function (stream) {
+            video.srcObject = stream;
+          })
+          .catch(function (error) {
+            alert("Media Access Denied");
+          });
+      }
+      else{
+        alert('Media not Found')
+      }
+  </script>
+{% endblock content %}
+
+<script>
+    var video = document.querySelector("#videoElement");
+
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(function (stream) {
+            video.srcObject = stream;
+          })
+          .catch(function (error) {
+            alert("Media Access Denied");
+          });
+      }
+      else{
+        alert('Media not Found')
+      }
+  </script>
